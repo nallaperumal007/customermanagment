@@ -15,6 +15,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 
+
 const AddCustomerModal = ({ open, handleClose }) => {
   const [customer, setCustomer] = useState({
     company: "",
@@ -51,7 +52,71 @@ const AddCustomerModal = ({ open, handleClose }) => {
     loyalty: false,
     promotion: false,
   });
-
+  const handleSubmit = () => {
+    let tableStyle = `
+      <style>
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          font-family: Arial, sans-serif;
+        }
+        th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+        }
+        th {
+          background-color: #f4f4f4;
+        }
+      </style>
+    `;
+  
+    let formDetails = `
+      ${tableStyle}
+      <h2>📝 Customer Information 📝</h2>
+      <table>
+        <tr><th>Field</th><th>Value</th></tr>
+        <tr><td>📌 Company</td><td>${customer.company}</td></tr>
+        <tr><td>📍 Area</td><td>${customer.area}</td></tr>
+        <tr><td>🏷️ Customer Type</td><td>${customer.customerType}</td></tr>
+        <tr><td>🆔 GST No</td><td>${customer.gstNo}</td></tr>
+        <tr><td>👤 Customer Name</td><td>${customer.customerName}</td></tr>
+        <tr><td>🔍 Search Code</td><td>${customer.searchCode}</td></tr>
+        <tr><td>🧑‍💼 Salesman</td><td>${customer.salesman}</td></tr>
+        <tr><td>💰 Price Level</td><td>${customer.priceLevel}</td></tr>
+        <tr><td>🏠 Address</td><td>${customer.address}</td></tr>
+        <tr><td>🏢 Place</td><td>${customer.place}</td></tr>
+        <tr><td>🏛️ District</td><td>${customer.district}</td></tr>
+        <tr><td>📮 Pincode</td><td>${customer.pincode}</td></tr>
+        <tr><td>🏴 State</td><td>${customer.stateName}</td></tr>
+        <tr><td>🏦 GST Type</td><td>${customer.gstType}</td></tr>
+        <tr><td>🏦 PAN No</td><td>${customer.panNo}</td></tr>
+        <tr><td>🆔 Aadhar No</td><td>${customer.aadharNo}</td></tr>
+        <tr><td>📱 Mobile No1</td><td>${customer.mobileNo1}</td></tr>
+        <tr><td>📱 Mobile No2</td><td>${customer.mobileNo2}</td></tr>
+        <tr><td>💬 WhatsApp No</td><td>${customer.whatsappNo}</td></tr>
+        <tr><td>🔄 TCS/TDS</td><td>${customer.tcsTds}</td></tr>
+        <tr><td>✅ Allow Credit</td><td>${customer.allowCredit ? "Yes" : "No"}</td></tr>
+        <tr><td>✅ TCS Exempted</td><td>${customer.tcsExempted ? "Yes" : "No"}</td></tr>
+        <tr><td>🕒 Credit Days</td><td>${customer.creditDays}</td></tr>
+        <tr><td>💲 Amount Limit</td><td>${customer.amountLimit}</td></tr>
+        <tr><td>📜 Bills Limit</td><td>${customer.billsLimit}</td></tr>
+        <tr><td>⏳ Overdue Billing</td><td>${customer.overdueBilling ? "Yes" : "No"}</td></tr>
+        <tr><td>📊 Position</td><td>${customer.position}</td></tr>
+        <tr><td>🎯 Discount</td><td>${customer.discount}%</td></tr>
+        <tr><td>⭐ Special Discount</td><td>${customer.specialDiscount ? "Yes" : "No"}</td></tr>
+        <tr><td>🚚 Loading</td><td>${customer.loading ? "Yes" : "No"}</td></tr>
+        <tr><td>📦 Freight</td><td>${customer.freight ? "Yes" : "No"}</td></tr>
+        <tr><td>🎁 Loyalty</td><td>${customer.loyalty ? "Yes" : "No"}</td></tr>
+        <tr><td>🔥 Promotion</td><td>${customer.promotion ? "Yes" : "No"}</td></tr>
+      </table>
+    `;
+  
+    let newWindow = window.open("", "_blank");
+    newWindow.document.write(formDetails);
+    newWindow.document.close();
+  };
+  
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setCustomer({ ...customer, [name]: type === "checkbox" ? checked : value });
@@ -68,6 +133,7 @@ const AddCustomerModal = ({ open, handleClose }) => {
   };
 
   return (
+    
     <Modal open={open} onClose={handleClose}>
       <Box
         sx={{
@@ -354,12 +420,17 @@ const AddCustomerModal = ({ open, handleClose }) => {
 
         {/* Buttons */}
         <Box sx={{ mt: 3, display: "flex", gap: 2, justifyContent: "center" }}>
-          <Button variant="contained" color="success">Save (F5)</Button>
+        <Button variant="contained" color="success" onClick={handleSubmit}>
+  Save (F5)
+</Button>
+
           <Button variant="contained" color="primary">Save & New (F6)</Button>
           <Button variant="outlined" color="error" onClick={handleClose}>Cancel</Button>
         </Box>
       </Box>
+      
     </Modal>
+    
   );
 };
 
